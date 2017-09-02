@@ -27,6 +27,7 @@ def greet_user(bot, update):
 def talk_to_me(bot, update):
     user_text = update.message.text 
     print(user_text)
+    # user_text[1000000000000]
     update.message.reply_text(user_text)
 
 # Вызываем функцию - эта строчка собственно запускает бота
