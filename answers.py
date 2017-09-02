@@ -7,3 +7,4 @@ def get_answer(question):
     return answers[question]
 print(get_answer(question))	
 
+
