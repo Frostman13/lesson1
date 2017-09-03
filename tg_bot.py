@@ -1,6 +1,8 @@
+import tg_bot_settings
+
 # Подключаем лог
 import logging
-logging.basicConfig(format='%(name)s - %(levelname)s - %(message)s',
+logging.basicConfig(format='%(name)s - %(asctime)s - %(levelname)s - %(message)s',
                     level=logging.INFO,
                     filename='tg_bot.log'
                     )
@@ -8,28 +10,32 @@ logging.basicConfig(format='%(name)s - %(levelname)s - %(message)s',
 # Импортируем нужные компоненты
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
-# Функция, которая соединяется с платформой Telegram, "тело" нашего бота
-def main():
-    updater = Updater("439722062:AAGMI4F-7lHD1lJ_hNbXPNnt5WWCBZvX3Cc")
+# Приветствие
+def start_bot(bot, update):
+    start_text = """Привет, {}!
 
+Я простой бот и понимаю только команды: {}
+    """.format(update.message.chat.first_name,'/start')
+    logging.info('Пользователь {} нажал /start'.format(update.message.chat.username))
+    update.message.reply_text(start_text)
+
+# Чат-бот
+def chat_bot(bot, update):
+    text=update.message.text
+    logging.info(text)
+    update.message.reply_text(text)
+
+def main():
+    updater = Updater(tg_bot_settings.TELEGRAM_API_KEY)
+    
     dp = updater.dispatcher
-    dp.add_handler(CommandHandler("start", greet_user))
-    dp.add_handler(MessageHandler(Filters.text, talk_to_me))
+    dp.add_handler(CommandHandler("start", start_bot))
+    dp.add_handler(MessageHandler(Filters.text, chat_bot))
 
     updater.start_polling()
     updater.idle()
 
-def greet_user(bot, update):
-    text = 'Вызван /start'
-    print(text)
-    update.message.reply_text(text)
 
-def talk_to_me(bot, update):
-    user_text = update.message.text 
-    print(user_text)
-    # user_text[1000000000000]
-    update.message.reply_text(user_text)
-
-# Вызываем функцию - эта строчка собственно запускает бота
-main()
-
+if __name__ == '__main__':
+    logging.info('Bot started')
+    main()

@@ -8,3 +8,9 @@ Traceback (most recent call last):
   File "C:\projects\lesson1\tg_bot.py", line 30, in talk_to_me
     user_text[1000000000000]
 IndexError: string index out of range
+root - 2017-09-03 22:52:20,001 - INFO - Bot started
+root - 2017-09-03 22:52:22,601 - INFO - Пользователь None нажал /start
+root - 2017-09-03 22:53:25,270 - INFO - Bot started
+root - 2017-09-03 22:53:26,855 - INFO - Пользователь None нажал /start
+root - 2017-09-03 22:54:29,597 - INFO - Bot started
+root - 2017-09-03 22:54:32,321 - INFO - Пользователь ammoroz нажал /start
